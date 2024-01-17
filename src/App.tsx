@@ -1,7 +1,9 @@
+import MainLayout from "./components/layout/MainLayout";
+
 const App = () => {
   return (
     <>
-      <h1>Hello</h1>
+      <MainLayout />
     </>
   );
 };
