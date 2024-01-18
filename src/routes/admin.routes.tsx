@@ -5,11 +5,6 @@ import AdminDemo3 from "../pages/admin/AdminDemo3";
 import AdminDemo4 from "../pages/admin/AdminDemo4";
 import { NavLink } from "react-router-dom";
 
-type TRoute = {
-  path: string;
-  element: ReactNode;
-};
-
 type TSidebarItem = {
   key: string;
   label: ReactNode;
@@ -17,7 +12,7 @@ type TSidebarItem = {
 };
 
 // demo routes
-const adminPaths = [
+export const adminPaths = [
   {
     name: "Dashboard",
     path: "dashboard",
@@ -44,25 +39,6 @@ const adminPaths = [
     ],
   },
 ];
-
-// create route
-export const adminRoutes = adminPaths.reduce((acc: TRoute[], item) => {
-  if (item?.path && item?.element) {
-    acc.push({
-      path: item.path,
-      element: item.element,
-    });
-  } else if (item?.children) {
-    item?.children.forEach((element) => {
-      acc.push({
-        path: element.path,
-        element: element.element,
-      });
-    });
-  }
-
-  return acc;
-}, []);
 
 // create ant design sidebar menu items
 export const adminSidebarItems = adminPaths.reduce(
