@@ -1,20 +1,22 @@
-import { Button } from "antd";
-import { useForm } from "react-hook-form";
+import { Button, Row } from "antd";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useAppDispatch } from "../redux/hooks";
-import { setUser } from "../redux/features/auth/authSlice";
+import { TUser, setUser } from "../redux/features/auth/authSlice";
 import { verifyToken } from "../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import CustomForm from "../components/form/CustomForm";
+import CustomInput from "../components/form/CustomInput";
+import { FieldValues } from "react-hook-form";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm();
-  const [login, { isError }] = useLoginMutation();
+  const [login] = useLoginMutation();
   const dispatch = useAppDispatch();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Logging In");
+
     try {
       const userInfo = {
         id: data.id,
@@ -22,7 +24,7 @@ const Login = () => {
       };
       const res = await login(userInfo).unwrap();
 
-      const user = verifyToken(res.data.accessToken);
+      const user = verifyToken(res.data.accessToken) as TUser;
 
       dispatch(
         setUser({
@@ -46,17 +48,17 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label htmlFor="id">ID: </label>
-        <input type="text" id="id" {...register("id")} />
-      </div>
-      <div>
-        <label htmlFor="password">Password: </label>
-        <input type="text" id="password" {...register("password")} />
-      </div>
-      <Button htmlType="submit">Login</Button>
-    </form>
+    <Row justify={"center"} align={"middle"} style={{ height: "100vh" }}>
+      <CustomForm onSubmit={onSubmit}>
+        <div
+          style={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
+        >
+          <CustomInput type="text" name="id" label="ID:" />
+          <CustomInput type="text" name="password" label="Password:" />
+          <Button htmlType="submit">Login</Button>
+        </div>
+      </CustomForm>
+    </Row>
   );
 };
 
