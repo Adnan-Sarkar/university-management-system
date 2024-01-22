@@ -51,7 +51,14 @@ const Login = () => {
     <Row justify={"center"} align={"middle"} style={{ height: "100vh" }}>
       <CustomForm onSubmit={onSubmit}>
         <div
-          style={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "20px",
+            background: "#f5f6fa",
+            padding: "50px",
+            borderRadius: "10px",
+          }}
         >
           <CustomInput type="text" name="id" label="ID:" />
           <CustomInput type="text" name="password" label="Password:" />
