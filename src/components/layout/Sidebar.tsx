@@ -33,7 +33,7 @@ const Sidebar = () => {
   }
 
   return (
-    <Sider breakpoint="lg" collapsedWidth="0">
+    <Sider breakpoint="lg" collapsedWidth="0" width={270}>
       <div
         className="demo-logo-vertical"
         style={{
