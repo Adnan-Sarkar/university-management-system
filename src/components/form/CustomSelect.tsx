@@ -1,4 +1,4 @@
-import { Form, Select } from "antd";
+import { Alert, Form, Select } from "antd";
 import { Controller } from "react-hook-form";
 
 type TCustomSelectProps = {
@@ -11,7 +11,7 @@ const CustomSelect = ({ label, name, options }: TCustomSelectProps) => {
   return (
     <Controller
       name={name}
-      render={({ field: { onChange } }) => (
+      render={({ field: { onChange }, fieldState: { error } }) => (
         <Form.Item label={label}>
           <Select
             popupMatchSelectWidth={false}
@@ -19,6 +19,7 @@ const CustomSelect = ({ label, name, options }: TCustomSelectProps) => {
             options={options}
             size="large"
           />
+          {error && <Alert message={error.message} type="error" showIcon />}
         </Form.Item>
       )}
     />
