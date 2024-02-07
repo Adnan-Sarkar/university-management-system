@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Form } from "antd";
 import { ReactNode } from "react";
 import {
@@ -10,10 +11,13 @@ import {
 type TFormProps = {
   onSubmit: SubmitHandler<FieldValues>;
   children: ReactNode;
+  resolver?: any;
 };
 
-const CustomForm = ({ onSubmit, children }: TFormProps) => {
-  const methods = useForm({});
+const CustomForm = ({ onSubmit, children, resolver }: TFormProps) => {
+  const methods = useForm({
+    resolver,
+  });
   return (
     <FormProvider {...methods}>
       <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>
