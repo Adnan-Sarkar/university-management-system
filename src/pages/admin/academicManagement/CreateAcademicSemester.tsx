@@ -4,6 +4,8 @@ import { Button, Col, Flex } from "antd";
 import CustomSelect from "../../../components/form/CustomSelect";
 import { semesterOptions } from "../../../constants/semester";
 import { monthOptions } from "../../../constants/month";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { academicSemesterSchema } from "../../../schemas/academicManagement.schema";
 
 const currentYear = new Date().getFullYear();
 const yearOptions = [1, 2, 3, 4, 5].map((number) => ({
@@ -18,6 +20,8 @@ const CreateAcademicSemester = () => {
       name,
       code: data.name,
       year: data.year,
+      startMonth: data.startMonth,
+      endMonth: data.endMonth,
     };
 
     console.log(semesterData);
@@ -26,7 +30,10 @@ const CreateAcademicSemester = () => {
   return (
     <Flex justify="center" align="center">
       <Col span={6}>
-        <CustomForm onSubmit={onSubmit}>
+        <CustomForm
+          onSubmit={onSubmit}
+          resolver={zodResolver(academicSemesterSchema)}
+        >
           <CustomSelect
             name="name"
             label="Semester Name"
