@@ -34,7 +34,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   let result = await baseQuery(args, api, extraOptions);
 
   if (result?.error?.status === 404) {
-    toast.error("User not found!");
+    toast.error(result?.error?.data?.message);
   }
 
   // if access token isexpired, then sending refresh token to retrive new access token
